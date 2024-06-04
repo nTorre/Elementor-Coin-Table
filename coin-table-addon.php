@@ -2,7 +2,7 @@
 /**
  * Plugin Name: GetCoinInfo
  * Description: Displays table of coins with coin gecko API
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Nicolas Torriglia
  */
 
