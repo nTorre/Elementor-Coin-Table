@@ -161,7 +161,7 @@ class Coin_Table_Widget extends \Elementor\Widget_Base {
                     $svg $percentage%
                 </div>
             </td>
-            <td>$market_cap_usd</td>
+            <td>$$market_cap_usd</td>
             <td>$market_cap_eth ETH</td>
             <td>$token[market_cap_rank]</td>
             <td>$$high_24h</td>
