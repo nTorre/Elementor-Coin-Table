@@ -1,6 +1,7 @@
 # Coin Table List
 
 A simple table generator that uses Coingecko api to show coin information.
+New version with cached infos.
 
 ## Installation
 Clone the repo and zip it. Then import the plugin on Wordpress.
