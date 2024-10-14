@@ -348,11 +348,11 @@ class Coin_Table_Widget extends \Elementor\Widget_Base
             $percent_color = "red";
             $svg = '<svg fill="red" width="15" height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg>';
 
-            $price_usd = number_format($token['price_usd'], $this->getDecimalCount($token['price_usd']), '.', ',');
+            $price_usd = troncaDecimali(number_format($token['price_usd'], $this->getDecimalCount($token['price_usd']), '.', ','));    
             $market_cap_usd = number_format($token['market_cap_usd'], $this->getDecimalCount($token['market_cap_usd']), '.', ',');
             $market_cap_eth = number_format($token['market_cap_eth'], $this->getDecimalCount($token['market_cap_eth']), '.', ',');
-            $high_24h = number_format($token['high_24h'], $this->getDecimalCount($token['high_24h']), '.', ',');
-            $low_24h = number_format($token['low_24h'], $this->getDecimalCount($token['low_24h']), '.', ',');
+            $high_24h = troncaDecimali(number_format($token['high_24h'], $this->getDecimalCount($token['high_24h']), '.', ','));
+            $low_24h = troncaDecimali(number_format($token['low_24h'], $this->getDecimalCount($token['low_24h']), '.', ','));
 
 
 
@@ -427,4 +427,44 @@ class Coin_Table_Widget extends \Elementor\Widget_Base
 
         return $data;
     }
+}
+
+function troncaDecimali($numero) {
+    // Convertiamo il numero in stringa
+    $stringa = (string)$numero;
+    
+    // Separiamo la parte intera da quella decimale
+    $parti = explode('.', $stringa);
+    
+    // Se non ci sono decimali, restituiamo il numero originale
+    if (count($parti) === 1) {
+        return $stringa;
+    }
+    
+    $parteIntera = $parti[0];
+    $parteDecimale = $parti[1];
+    
+    // Contiamo le cifre decimali significative (diverse da zero)
+    $cifre = 0;
+    $lunghezza = strlen($parteDecimale);
+    $risultato = '';
+    
+    for ($i = 0; $i < $lunghezza; $i++) {
+        $cifra = $parteDecimale[$i];
+        $risultato .= $cifra;
+        
+        if ($cifra !== '0') {
+            $cifre++;
+        }
+        
+        if ($cifre === 4) {
+            break;
+        }
+    }
+    
+    // Rimuoviamo eventuali zeri finali
+    $risultato = rtrim($risultato, '0');
+    
+    // Ricomponiamo il numero
+    return $parteIntera . ($risultato !== '' ? '.' . $risultato : '');
 }
